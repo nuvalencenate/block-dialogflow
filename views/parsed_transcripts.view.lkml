@@ -4,7 +4,7 @@ view: parsed_transcripts {
     SELECT
       textPayload as textPayload
       , proto2json(textPayload,"messages,fields") as payload_as_json
-      FROM `@{DATASET_NAME}.dialogflow_agent@{TABLE_PARTITION}`
+      FROM `@{DATASET_NAME}.@{TABLE_PARTITION}`
        ;;
   }
 
