@@ -2,8 +2,8 @@ view: parsed_transcripts {
   derived_table: {
     sql:
     SELECT
-      textPayload as textPayload
-      , proto2json(textPayload,"messages,fields") as payload_as_json
+      logName as logName, resource as resource,
+      labels as labels, jsonPayload as jsonPayload,
       FROM `@{DATASET_NAME}.@{TABLE_PARTITION}`
        ;;
   }
@@ -23,14 +23,14 @@ view: parsed_transcripts {
   }
   dimension_group: timestamp {
     type: time
-    sql: cast(JSON_EXTRACT_SCALAR(${payload_as_json}, '$.timestamp')  as timestamp);;
+    sql: cast(timestamp) as timestamp);;
     group_label: "Conversation Time"
     label: "Conversation Time"
     description: "Time when conversation occurred"
   }
   dimension: session_id {
     type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.session_id') ;;
+    sql: labels.session_id ;;
     group_label: "IDs"
   }
 
