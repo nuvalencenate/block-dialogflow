@@ -1,29 +1,27 @@
 view: parsed_transcripts {
   derived_table: {
     sql:
-    SELECT
-      logName as logName, resource as resource,
-      labels as labels, jsonPayload as jsonPayload,
-      FROM `@{DATASET_NAME}.@{TABLE_PARTITION}`
+    SELECT *
+      FROM `@{LOGS_DB}.@{REQUESTS_TABLE}`
        ;;
   }
 
   dimension: id {
     type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.id') ;;
-    label: "Conversation ID"
+    sql: CONCAT(labels.agent_id, "__", labels.location_id, "__",labels.session_id) ;;
+    label: "Conversation ID primary key"
     group_label: "IDs"
   }
   dimension: lang {
     type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.lang') ;;
+    sql: jsonPayload.languagecode ;;
     label: "Language"
     description: "Language in which conversation took place"
     view_label: "Conversation Characteristics"
   }
   dimension_group: timestamp {
     type: time
-    sql: cast(timestamp) as timestamp);;
+    sql: CAST(timestamp) as timestamp);;
     group_label: "Conversation Time"
     label: "Conversation Time"
     description: "Time when conversation occurred"
@@ -38,7 +36,7 @@ view: parsed_transcripts {
 
   dimension: source {
     type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.source') ;;
+    sql: jsonPayload.messages.source ;;
     view_label: "Conversation Characteristics"
     description: "Source of Conversation"
   }
@@ -51,14 +49,14 @@ view: parsed_transcripts {
   dimension: resolved_query {
     description: "User Question / Message to bot"
     type: string
-    sql:JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.resolved_query')  ;;
+    sql: jsonPayload.queryresult.match.resolvedinput  ;;
     label: "User Query"
   }
   dimension: score {
     type: number
-    sql:CAST(JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.score') AS NUMERIC) ;;
+    sql: CAST(jsonPayload.sentimentanalysisresult.score) AS NUMERIC) ;;
     view_label: "Conversation Characteristics"
-    description: "Score given to Conversation"
+    description: "Sentiment score given to Conversation"
   }
 
   #### Metadata Payload
@@ -90,7 +88,7 @@ view: parsed_transcripts {
   }
   dimension: intent_name {
     type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.intent_name') ;;
+    sql: jsonPayload.intentinfo.displayname ;;
     group_label: "Intent"
     description: "A description of the caller's intent"
     view_label: "Conversation Characteristics"
@@ -124,22 +122,22 @@ view: parsed_transcripts {
   dimension: speech {
     description: "Bot Response"
     type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.fulfillment.speech') ;;
+    sql: jsonPayload.queryresult.responsemessages.text.text ;;
     label: "Bot Answer"
   }
 
 ### Raw Data ###
 
-  dimension: text_payload {
+  dimension: json_payload {
     view_label: "Raw Data"
     type: string
-    sql: ${TABLE}.textPayload ;;
+    sql: ${TABLE}.jsonPayload ;;
   }
   dimension: payload_type {
     view_label: "Raw Data"
     ### SQL Always Where in Model File is filtering data down to only Dialogflow Requests ###
     type: string
-    sql: split(${text_payload}, ':')[OFFSET(0)];;
+    sql: resource.type ;;
   }
   dimension: parameters {
     #Only used for unnesting join
