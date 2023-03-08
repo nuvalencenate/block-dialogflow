@@ -82,6 +82,7 @@ view: parsed_transcripts {
     type: number
     sql: jsonPayload.queryresult.webhooklatencies ;;
     view_label: "Conversation Characteristics"
+  }
   
   dimension: intent_name {
     type: string
