@@ -21,7 +21,7 @@ view: parsed_transcripts {
   }
   dimension_group: timestamp {
     type: time
-    sql: CAST(timestamp) as timestamp);;
+    sql: CAST(timestamp) as timestamp;;
     group_label: "Conversation Time"
     label: "Conversation Time"
     description: "Time when conversation occurred"
@@ -54,7 +54,7 @@ view: parsed_transcripts {
   }
   dimension: score {
     type: number
-    sql: CAST(jsonPayload.sentimentanalysisresult.score) AS NUMERIC) ;;
+    sql: CAST(jsonPayload.sentimentanalysisresult.score) AS NUMERIC ;;
     view_label: "Conversation Characteristics"
     description: "Sentiment score given to Conversation"
   }
@@ -83,7 +83,7 @@ view: parsed_transcripts {
     sql: jsonPayload.queryresult.webhooklatencies ;;
     view_label: "Conversation Characteristics"
   }
-  
+
   dimension: intent_name {
     type: string
     sql: jsonPayload.intentinfo.displayname ;;
