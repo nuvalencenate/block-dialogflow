@@ -63,29 +63,26 @@ view: parsed_transcripts {
 
   dimension: webhook_for_slot_filling_used {
     type: yesno
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.webhook_for_slot_filling_used') = 'true' ;;
+    sql: jsonpayload_v3alpha1_webhookresponse._type IS NOT NULL ;;
     view_label: "Conversation Characteristics"
   }
   dimension: is_fallback_intent {
     type: yesno
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.is_fallback_intent') = 'true' ;;
+    sql: jsonPayload.queryresult.match.matchtype = "NO_MATCH" AND jsonPayload.queryresult.match.matchtype IS NOT NULL ;;
     description: "Whether the intent of the call was a fallback"
     view_label: "Conversation Characteristics"
   }
   dimension: intent_id {
     type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.intent_id') ;;
+    sql: jsonPayload.detectintentresponseid ;;
     group_label: "Intent"
     hidden: yes
   }
   dimension: web_hook_response_time {
     type: number
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.webhook_response_time') ;;
+    sql: jsonPayload.queryresult.webhooklatencies ;;
     view_label: "Conversation Characteristics"
-  }
-  dimension: response_time_tiers {
-
-  }
+  
   dimension: intent_name {
     type: string
     sql: jsonPayload.intentinfo.displayname ;;
@@ -101,20 +98,10 @@ view: parsed_transcripts {
     description: "The category associated with the caller's intent"
     view_label: "Conversation Characteristics"
   }
-  dimension: original_webhook_payload {
-    type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.original_webhook_payload') ;;
-    group_label: "Original Webhook"
-  }
   dimension: webhook_used {
     type: yesno
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.webhook_used') = 'true' ;;
+    sql: jsonPayload.queryresult.webhookids IS NOT NULL ;;
     view_label: "Conversation Characteristics"
-  }
-  dimension: original_webhook_body {
-    type: string
-    sql: JSON_EXTRACT_SCALAR(${payload_as_json}, '$.result.metadata.original_webhook_body') ;;
-    group_label: "Original Webhook"
   }
 
 ### Fulfillment ####

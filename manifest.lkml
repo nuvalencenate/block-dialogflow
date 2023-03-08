@@ -18,7 +18,7 @@ constant: REQUESTS_TABLE {
   export: override_optional
 }
 
-constant: CALLSs_TABLE {
+constant: CALLS_TABLE {
   value: "dialogflow_googleapis_com_incoming_call"
   export: override_optional
 }
