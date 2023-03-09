@@ -21,7 +21,7 @@ view: parsed_transcripts {
   }
   dimension_group: timestamp {
     type: time
-    sql: CAST(timestamp) as timestamp;;
+    sql: CAST(timestamp as timestamp);;
     group_label: "Conversation Time"
     label: "Conversation Time"
     description: "Time when conversation occurred"
@@ -141,7 +141,7 @@ view: parsed_transcripts {
   dimension: payload_as_json {
 
     view_label: "Raw Data"
-    html: <div style="white-space:break-spaces;max-width:640px;overflow:hidden">{{value}}</div> ;;
+    sql: TO_JSON_STRING(jsonPayload.sessioninfo.parameters) ;;
   }
 
   ##Below are Calculations From "Metrics to Measure" Google Doc
