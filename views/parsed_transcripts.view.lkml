@@ -36,7 +36,7 @@ view: parsed_transcripts {
 
   dimension: source {
     type: string
-    sql: jsonPayload.messages.source ;;
+    sql: (SELECT source FROM UNNEST(jsonPayload.messages)) ;;
     view_label: "Conversation Characteristics"
     description: "Source of Conversation"
   }
@@ -54,7 +54,7 @@ view: parsed_transcripts {
   }
   dimension: score {
     type: number
-    sql: CAST(jsonPayload.sentimentanalysisresult.score) AS NUMERIC ;;
+    sql: jsonPayload.sentimentanalysisresult.score ;;
     view_label: "Conversation Characteristics"
     description: "Sentiment score given to Conversation"
   }
@@ -80,7 +80,7 @@ view: parsed_transcripts {
   }
   dimension: web_hook_response_time {
     type: number
-    sql: jsonPayload.queryresult.webhooklatencies ;;
+    sql: ( SELECT CAST(seconds AS NUMERIC) FROM (SELECT TRIM(latencies, 's') AS seconds FROM UNNEST(jsonPayload.queryresult.webhooklatencies) AS latencies)) ;;
     view_label: "Conversation Characteristics"
   }
 
@@ -110,7 +110,7 @@ view: parsed_transcripts {
   dimension: speech {
     description: "Bot Response"
     type: string
-    sql: jsonPayload.queryresult.responsemessages.text.text ;;
+    sql: (SELECT text.text FROM UNNEST(jsonPayload.queryresult.responsemessages) LIMIT 1) ;;
     label: "Bot Answer"
   }
 
