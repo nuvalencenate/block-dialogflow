@@ -119,13 +119,13 @@ view: parsed_transcripts {
   dimension: json_payload {
     view_label: "Raw Data"
     type: string
-    sql: ${TABLE}.jsonPayload ;;
+    sql: TO_JSON_STRING(${TABLE}.jsonPayload) ;;
   }
   dimension: payload_type {
     view_label: "Raw Data"
     ### SQL Always Where in Model File is filtering data down to only Dialogflow Requests ###
     type: string
-    sql: resource.type ;;
+    sql: jsonPayload.responsetype ;;
   }
   dimension: parameters {
     #Only used for unnesting join
