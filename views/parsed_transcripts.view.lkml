@@ -221,6 +221,8 @@ view: parsed_transcripts {
   }
   dimension: caller_id {
     view_label: "Telephony Metrics"
+    type: string
+    sql: jsonPayload.queryparams.payload.telephony.caller_id
   }
   measure: count_distinct_trace {
     view_label: "Telephony Metrics"
@@ -234,6 +236,8 @@ view: parsed_transcripts {
   }
   dimension: area_code {
     view_label: "Telephony Metrics"
+    type: string
+    sql: SUBSTRING(jsonPayload.queryparams.payload.telephony.caller_id, 3, 3)
   }
   set: detail {
     fields: [
