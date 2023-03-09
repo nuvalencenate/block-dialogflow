@@ -10,8 +10,4 @@ explore: parsed_transcripts {
     relationship: many_to_one
     sql_on: ${session_facts.session_id} = ${parsed_transcripts.session_id} ;;
   }
-  join: response_messages {
-    relationship: many_to_one
-    sql: LEFT JOIN UNNEST(jsonPayload.queryresult.responsemessages) as response ;;
-  }
 }
