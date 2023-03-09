@@ -110,7 +110,7 @@ view: parsed_transcripts {
   dimension: speech {
     description: "Bot Response"
     type: string
-    sql: (SELECT text.text FROM UNNEST(jsonPayload.queryresult.responsemessages) LIMIT 1) ;;
+    sql: (SELECT ARRAY_TO_STRING(text.text,",") FROM UNNEST(jsonPayload.queryresult.responsemessages) LIMIT 1) ;;
     label: "Bot Answer"
   }
 
