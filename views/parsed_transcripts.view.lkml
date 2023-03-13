@@ -58,10 +58,21 @@ view: parsed_transcripts {
     view_label: "Conversation Characteristics"
     description: "Sentiment score given to Conversation"
   }
+  dimension: intent_confidence {
+    type: number
+    sql: jsonPayload.intentinfo.confidence ;;
+    description: "Confidence an intent was given for its match"
+  }
+  dimension: intent_confidence_tier {
+    type: tier
+    sql: ${intent_confidence} ;;
+    style: interval
+    tiers: [0.3,0.5,0.8,1]
+  }
 
   #### Metadata Payload
 
-  dimension: webhook_for_slot_filling_used {
+  dimension: webhook {
     type: yesno
     sql: jsonpayload_v3alpha1_webhookresponse._type IS NOT NULL ;;
     view_label: "Conversation Characteristics"
