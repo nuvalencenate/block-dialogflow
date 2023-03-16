@@ -54,7 +54,7 @@ view: parsed_transcripts {
   }
   dimension: score {
     type: number
-    sql: jsonPayload.sentimentanalysisresult.score ;;
+    sql: jsonPayload.queryresult.sentimentanalysisresult.score ;;
     view_label: "Conversation Characteristics"
     description: "Sentiment score given to Conversation"
   }
