@@ -253,7 +253,6 @@ view: parsed_transcripts {
   set: detail {
     fields: [
       webhook_used,
-      webhook_for_slot_filling_used,
       speech,
       source,
       session_id,

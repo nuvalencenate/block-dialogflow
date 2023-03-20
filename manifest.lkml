@@ -4,7 +4,7 @@ project_name: "block-dialogflow"
 ################ Constants ################
 
 constant: CONNECTION_NAME {
-  value: "your_connection"
+  value: "prospect-ccai-logs"
   export: override_optional
 }
 
