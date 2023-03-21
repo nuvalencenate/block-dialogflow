@@ -4,6 +4,7 @@ connection: "@{CONNECTION_NAME}"
 # include all the views
 include: "/explores/*"
 include: "/dashboards/*.dashboard"
+include: "data_tests.lkml"
 
 persist_with: default_datagroup
 
