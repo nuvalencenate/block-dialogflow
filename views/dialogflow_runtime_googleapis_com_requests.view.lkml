@@ -1491,6 +1491,16 @@ view: dialogflow_runtime_googleapis_com_requests {
     sql: ${TABLE}.timestamp ;;
   }
 
+  measure: max_timestamp {
+    type: date_time
+    sql: MAX(${timestamp_raw}) ;;
+  }
+
+  measure: min_timestamp {
+    type: date_time
+    sql: MIN(${timestamp_raw}) ;;
+  }
+
   dimension: trace {
     type: string
     sql: ${TABLE}.trace ;;
