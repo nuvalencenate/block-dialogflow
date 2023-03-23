@@ -376,6 +376,11 @@ view: dialogflow_runtime_googleapis_com_requests {
     group_item_label: "Session ID"
   }
 
+  dimension: bot_answer {
+    type: string
+    sql: (SELECT ARRAY_TO_STRING(text.text,",") FROM UNNEST(${TABLE}.jsonPayload.queryresult.responsemessages) LIMIT 1) ;;
+  }
+
   dimension: json_payload__queryresult__diagnosticinfo__transition_targets_chain {
     hidden: yes
     sql: ${TABLE}.jsonPayload.queryresult.diagnosticinfo.transition_targets_chain ;;
