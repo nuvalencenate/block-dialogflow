@@ -1,4 +1,4 @@
-include: "/views/*"
+include: "../views/*"
 
 explore: parsed_transcripts {
   join: parameters {
