@@ -1,10 +1,19 @@
-project_name: "block-dialogflow"
-
+project_name: "ccai-prototype"
 
 ################ Constants ################
 
-constant: CONNECTION_NAME {
+constant: CONNECTION_NAME_LOGS {
   value: "prospect-ccai-logs"
+  export: override_optional
+}
+
+constant: CONNECTION_NAME_DBT {
+  value: "ccai-dbt"
+  export: override_optional
+}
+
+constant: DBT_DATASOURCE_NAME {
+  value: "dialogflow_cx_dbt"
   export: override_optional
 }
 
