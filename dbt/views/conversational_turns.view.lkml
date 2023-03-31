@@ -4,15 +4,15 @@ view: conversational_turns {
   # to be used for all fields in this view.
   sql_table_name: `prospect-dol-ccai.@{DBT_DATASOURCE_NAME}.conversational_turns`
     ;;
-  drill_fields: [conversational_turn_id]
+  drill_fields: [conversation_id]
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
 
-  dimension: conversational_turn_id {
+  dimension: conversation_id {
     primary_key: yes
     type: string
-    description: "Unique ID PK, MD5 hash of conversation_name + turn_position"
-    sql: ${TABLE}.conversational_turn_id ;;
+    description: "Unique ID PK, MD5 hash of conversation_name + others"
+    sql: ${TABLE}.conversation_id ;;
   }
 
   # Here's what a typical dimension looks like in LookML.
@@ -29,13 +29,6 @@ view: conversational_turns {
     type: string
     description: "Utterances from the agent."
     sql: ${TABLE}.agent_utterances ;;
-  }
-
-  dimension: conversation_id {
-    type: string
-    description: "MD5 hash of conversation_name. FK to conversations"
-    # hidden: yes
-    sql: ${TABLE}.conversation_id ;;
   }
 
   dimension: conversation_name {
@@ -130,12 +123,6 @@ view: conversational_turns {
     sql: ${TABLE}.project_id ;;
   }
 
-  dimension: reached_end_page {
-    type: yesno
-    description: "Whether the user reached the end page of a flow."
-    sql: ${TABLE}.reached_end_page ;;
-  }
-
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
@@ -166,12 +153,6 @@ view: conversational_turns {
     sql: ${TABLE}.sentiment_score ;;
   }
 
-  dimension: turn_position {
-    type: number
-    description: "Conversational turn number."
-    sql: ${TABLE}.turn_position ;;
-  }
-
   dimension: user_utterances {
     type: string
     description: "Utterances made by the user."
@@ -186,7 +167,6 @@ view: conversational_turns {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      conversational_turn_id,
       conversation_name,
       match_intent_name,
       page_name,

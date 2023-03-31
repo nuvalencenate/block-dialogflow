@@ -108,14 +108,8 @@ view: conversations {
     sql: ${TABLE}.project_id ;;
   }
 
-  dimension: turn_count {
-    type: number
-    description: "The number of conversational_turns in this conversation."
-    sql: ${TABLE}.turn_count ;;
-  }
-
   measure: count {
     type: count
-    drill_fields: [conversation_id, conversation_name, conversational_turns.count]
+    drill_fields: [conversation_id, conversation_name]
   }
 }

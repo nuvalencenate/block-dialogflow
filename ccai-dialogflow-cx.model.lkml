@@ -1,6 +1,7 @@
 connection: "@{CONNECTION_NAME_DBT}"
 
-#include: "dbt/explores/*.explore"
+include: "dbt/explores/*.explore"
+include: "dbt/dashboards/*.dashboard"
 
 persist_with: default_datagroup
 

@@ -2,7 +2,6 @@ connection: "@{CONNECTION_NAME_LOGS}"
 
 # include all the views
 include: "dialogflow-block/explores/*.explore"
-include: "auto-generated-metrics/explores/*.explore"
 include: "dialogflow-block/dashboards/*.dashboard"
 include: "auto-generated-metrics/data_tests.lkml"
 
