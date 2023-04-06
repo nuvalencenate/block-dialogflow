@@ -2,7 +2,7 @@
 view: conversations {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `prospect-dol-ccai.@{DBT_DATASOURCE_NAME}.conversations`
+  sql_table_name: `prospect-dol-ccai.dbt_testing_ntranel.conversations`
     ;;
   drill_fields: [conversation_id]
   # This primary key is the unique key for this table in the underlying database.

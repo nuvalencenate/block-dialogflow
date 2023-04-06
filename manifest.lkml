@@ -13,7 +13,7 @@ constant: CONNECTION_NAME_DBT {
 }
 
 constant: DBT_DATASOURCE_NAME {
-  value: "dialogflow_cx_dbt"
+  value: "dbt_testing_ntranel"
   export: override_optional
 }
 
