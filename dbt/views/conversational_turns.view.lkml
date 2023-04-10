@@ -44,12 +44,6 @@ view: conversational_turns {
     sql: ${TABLE}.conversation_id ;;
   }
 
-  dimension: total_conversations {
-    type: number
-    description: "Total number of conversations"
-    sql: COUNT(DISTINCT ${TABLE}.conversation_id) ;;
-  }
-
   dimension: conversation_name {
     type: string
     description: "The ID of the conversation/session."
