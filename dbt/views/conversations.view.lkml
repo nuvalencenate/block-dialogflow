@@ -75,6 +75,12 @@ view: conversations {
     sql: ${TABLE}.conversation_name ;;
   }
 
+  dimension: is_audio_input {
+    type: yesno
+    description: "Whether the user input was audio or text."
+    sql: ${TABLE}.is_audio_input ;;
+  }
+
   dimension_group: conversation_start {
     type: time
     description: "The starting timestamp."
