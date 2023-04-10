@@ -44,6 +44,12 @@ view: conversational_turns {
     sql: ${TABLE}.conversation_id ;;
   }
 
+  dimension: total_conversations {
+    type: number
+    description: "Total number of conversations"
+    sql: COUNT(DISTINCT ${TABLE}.conversation_id) ;;
+  }
+
   dimension: conversation_name {
     type: string
     description: "The ID of the conversation/session."
@@ -76,6 +82,7 @@ view: conversational_turns {
     description: "Timestamp of query_input, or time of user input"
     timeframes: [
       raw,
+      hour_of_day,
       time,
       date,
       day_of_week,
@@ -172,6 +179,7 @@ view: conversational_turns {
     description: "Timestamp of query_result, or time of agent response"
     timeframes: [
       raw,
+      hour_of_day,
       time,
       date,
       day_of_week,
