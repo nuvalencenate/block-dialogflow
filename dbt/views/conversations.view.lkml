@@ -2,7 +2,7 @@
 view: conversations {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `prospect-dol-ccai.dbt_testing_ntranel.conversations`
+  sql_table_name: `prospect-dol-ccai.dialogflow_cx_dbt.conversations`
     ;;
   drill_fields: [conversation_id]
   # This primary key is the unique key for this table in the underlying database.
@@ -73,6 +73,12 @@ view: conversations {
     type: string
     description: "The fully qualified resource name for the session."
     sql: ${TABLE}.conversation_name ;;
+  }
+
+  dimension: is_audio_input {
+    type: yesno
+    description: "Whether the user input was audio or text."
+    sql: ${TABLE}.is_audio_input ;;
   }
 
   dimension_group: conversation_start {

@@ -2,7 +2,7 @@
 view: conversational_turns {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `prospect-dol-ccai.dbt_testing_ntranel.conversational_turns`
+  sql_table_name: `prospect-dol-ccai.dialogflow_cx_dbt.conversational_turns`
     ;;
   drill_fields: [conversational_turn_id]
   # This primary key is the unique key for this table in the underlying database.
@@ -76,8 +76,10 @@ view: conversational_turns {
     description: "Timestamp of query_input, or time of user input"
     timeframes: [
       raw,
+      hour_of_day,
       time,
       date,
+      day_of_week,
       week,
       month,
       quarter,
@@ -171,8 +173,10 @@ view: conversational_turns {
     description: "Timestamp of query_result, or time of agent response"
     timeframes: [
       raw,
+      hour_of_day,
       time,
       date,
+      day_of_week,
       week,
       month,
       quarter,
